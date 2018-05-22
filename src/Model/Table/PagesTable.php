@@ -29,11 +29,9 @@ class PagesTable extends Table
     public function initialize(array $config)
     {
         parent::initialize($config);
-
         $this->setTable('pages');
         $this->setDisplayField('titulo');
         $this->setPrimaryKey('id');
-
         $this->addBehavior('Timestamp');
     }
 
