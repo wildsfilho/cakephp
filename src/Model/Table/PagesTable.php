@@ -66,8 +66,7 @@ class PagesTable extends Table
 
         $validator
             ->dateTime('datacadastro')
-            ->requirePresence('datacadastro', 'create')
-            ->notEmpty('datacadastro');
+            ->requirePresence('datacadastro', 'create');
 
         $validator
             ->dateTime('datamodificacao')

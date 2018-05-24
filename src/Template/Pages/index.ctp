@@ -20,6 +20,8 @@
             <tr>
                  <td><?= $page->titulo; ?></td>
                  <td><?= $page->url; ?></td>
+                 <td><?= $this->Html->link('visualizar' , [ 'action'=> 'view' , $page->id]) ?></td>
+                 <td><?= $this->Html->link('editar' , [ 'action'=> 'edit' , $page->id]) ?></td>
                  <td></td>   
             </tr>
             <?php endforeach; ?>

@@ -1,7 +1,9 @@
 <?php
 namespace App\Model\Entity;
 
+
 use Cake\ORM\Entity;
+use Cake\Utility\Text;
 
 /**
  * Page Entity

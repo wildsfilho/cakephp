@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use Cake\I18n\Time;
+
 class PagesController extends AppController{
 
     public function index(){
@@ -16,26 +18,47 @@ class PagesController extends AppController{
 
     public function view($id){
 
-        debug('Visualização - ' . $id);
-        exit;
+        $page = $this->Pages->get($id);
+        $this->set('pagina',$page);
+
+        
     }
 
     public function add(){
 
-        $newPage = $this->Pages->newEntity();
+        $page = $this->Pages->newEntity();
         if($this->request->is('post')){
-            $newPage = $this->Pages->patchEntity($newPage, $this->request->getData());
+            $page = $this->Pages->patchEntity($page, array_merge($this->request->getData(), ['datacadastro'=> Time::now() ]));
 
-            if($this->Pages->save()){
-            $this->Flash->sucess('Salvo com sucesso');
+            if($this->Pages->saveOrFail($page)){
+            $this->Flash->success('Salvo com sucesso');
 
-            return $this->redirect(['action'=> 'index']);
+            return $this->redirect(['controller'=> 'pages',  'action'=> 'index']);
         
-         }
+                }   
+                $this->Flash->warning('Falhou Salvar');   
         }
-        $this->Flash->warning('errou');
         
-        $this->set('pagina', $newPage);
+        $this->set('pagina', $page);
+
+    }
+
+    public function edit($id){
+        
+        $page = $this->Pages->get($id);
+        if($this->request->is('post')){
+            $page = $this->Pages->patchEntity($page, array_merge($this->request->getData(), ['datacadastro'=> Time::now() ]));
+
+            if($this->Pages->saveOrFail($page)){
+            $this->Flash->success('Salvo com sucesso');
+
+            return $this->redirect(['controller'=> 'pages',  'action'=> 'index']);
+        
+                }   
+                $this->Flash->warning('Falhou Salvar');   
+        }
+        
+        $this->set('pagina', $page);
 
     }
 
